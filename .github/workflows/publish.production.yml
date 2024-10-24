@@ -1,0 +1,20 @@
+name: publish vupham2002/devops_course_proxy image to docker hub
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish_image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: build
+        run: |
+          docker build -t vupham2002/devops_course_proxy -f ./Dockerfile.production .
+      - name: publish
+        run: |
+          docker login -u vupham2002 -p dckr_pat_lD2duIpZUpzJNQxOESDgGuH932U
+          docker push vupham2002/devops_course_proxy
